@@ -1,21 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
+    <meta charset="UTF-8">
+    <!-- Aggiunge il meta tag per rendere la pagina responsive sui dispositivi mobili -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Cards</title>
+
     <style>
-        body {
+        /* Impostazioni generiche per pagine mobile-responsive */
+        html, body {
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: white;
-            font-family: Arial, sans-serif;
         }
 
+        /* La card occupa l'intera viewport del dispositivo */
         .card {
-            width: 640px;
-            height: 1280px;
+            width: 100%;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,9 +34,12 @@
             text-align: center;
             padding: 24px;
             background-color: white;
+            /* Se vuoi rimuovere il bordo stondato e l'ombra, puoi commentare/rimuovere le seguenti linee */
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
             cursor: pointer;
+            box-sizing: border-box;
         }
 
         .english-word {
@@ -64,7 +78,7 @@
 
     <script>
         // Array dei vocaboli
-        const vocabularyPairs = [
+         const vocabularyPairs = [
     { english: "Bland", italian: "Insipido" },
     { english: "StirFry", italian: "Soffritto" },
     { english: "Gone Off", italian: "Scaduto" },
@@ -359,6 +373,18 @@
 
   ];
 
+        // Funzione per mescolare l'array (Fisher-Yates shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Mescoliamo l'array dei vocaboli prima di iniziare
+        shuffleArray(vocabularyPairs);
+
         let currentIndex = 0;
         const englishWordElement = document.getElementById('englishWord');
         const italianWordElement = document.getElementById('italianWord');
@@ -376,10 +402,10 @@
             showCurrentWord();
         }
 
-        // Aggiungi l'event listener per il click
+        // Aggiungiamo l'event listener per il click
         cardElement.addEventListener('click', nextWord);
 
-        // Mostra la prima parola all'avvio
+        // Mostriamo la prima parola all'avvio
         showCurrentWord();
     </script>
 </body>
